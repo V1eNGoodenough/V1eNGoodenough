@@ -1,220 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VaneGoodenough</title>
+<!-- RPG-STYLE UI UPGRADE START -->
+<!-- 说明：这是一次纯 UI / 排版升级，不改变你任何内容结构与逻辑 -->
 
-  <!-- ========================
-       GLOBAL STYLE / THEME
-       ======================== -->
-  <style>
-    /* ====== BASIC RESET ====== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #0f0f0f;
-      color: #e0e0e0;
-      font-family: "Courier New", monospace;
-      overflow: hidden;
-    }
+<style>
+:root {
+  --bg-dark: #0e0f11;
+  --panel-dark: rgba(20, 22, 26, 0.88);
+  --accent: #8affc1;
+  --accent-dim: #4da37c;
+  --danger: #ff6b6b;
+  --border: rgba(138, 255, 193, 0.25);
+  --text-main: #e6f1ea;
+  --text-dim: #9fb8ad;
+}
 
-    /* ====== LAYOUT ====== */
-    .app {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      height: 100vh;
-    }
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #1b1e23, #070809 70%);
+  color: var(--text-main);
+}
 
-    /* ====== SIDEBAR ====== */
-    .sidebar {
-      background: #141414;
-      border-right: 1px solid #333;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+/* === RPG 主界面布局 === */
+.main {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100vh;
+  gap: 16px;
+  padding: 20px;
+}
 
-    .name {
-      font-size: 20px;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
+/* === 左侧 RPG 菜单 === */
+.sidebar {
+  background: var(--panel-dark);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-    .tabs {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+.sidebar h1 {
+  font-size: 22px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 6px;
+}
 
-    .tab {
-      cursor: pointer;
-      padding: 10px 12px;
-      border: 1px solid #333;
-      transition: all .2s;
-    }
+.tab {
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0));
+}
 
-    .tab:hover { background: #222; }
-    .tab.active {
-      background: #333;
-      border-color: #777;
-    }
+.tab:hover {
+  border-color: var(--border);
+  color: var(--accent);
+}
 
-    /* ====== MAIN PANEL ====== */
-    .panel {
-      position: relative;
-      padding: 32px;
-      overflow: hidden;
-    }
+.tab.active {
+  background: linear-gradient(135deg, rgba(138,255,193,0.15), rgba(0,0,0,0));
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: inset 0 0 12px rgba(138,255,193,0.15);
+}
 
-    /* ====== SECTIONS (ABSOLUTE STACK) ====== */
-    .section {
-      position: absolute;
-      inset: 0;
-      padding-right: 16px;
-      overflow-y: auto;
-      display: none;
-    }
+/* === 右侧 RPG 内容面板 === */
+.panel {
+  background: var(--panel-dark);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+  overflow: hidden;
+  position: relative;
+}
 
-    .section.active { display: block; }
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
 
-    /* ====== COMMON ELEMENTS ====== */
-    h2 { margin-bottom: 16px; font-size: 18px; }
-    .muted { color: #888; font-size: 13px; }
+.section {
+  display: none;
+  height: 100%;
+}
 
-    /* ====== MUSIC TRACK ====== */
-    .track {
-      border: 1px solid #333;
-      padding: 16px;
-      margin-bottom: 16px;
-      transition: transform .3s;
-    }
+.section.active {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
-    .track:hover { transform: scale(1.02); }
-    audio { width: 100%; margin-top: 8px; }
+.section h2 {
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
 
-    /* ====== IMAGE GRID ====== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 12px;
-    }
+/* === RPG 音乐列表 === */
+.audio-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0));
+}
 
-    .grid img {
-      width: 100%;
-      border: 1px solid #333;
-      transition: transform .3s;
-    }
+.audio-item span {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
 
-    .grid img:hover { transform: scale(1.08); }
+.audio-item audio {
+  width: 220px;
+}
 
-    /* ====== SOCIAL LINKS ====== */
-    .links a {
-      display: block;
-      color: #aaa;
-      text-decoration: none;
-      margin-bottom: 8px;
-    }
+/* === RPG 照片 / 卡片 === */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
 
-    .links a:hover { color: #fff; }
-  </style>
-</head>
-<body>
+.photo-grid img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-<!-- ========================
-     APP ROOT
-     ======================== -->
-<div class="app">
+.photo-grid img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(138,255,193,0.35);
+}
+</style>
 
-  <!-- ========================
-       SIDEBAR / NAVIGATION
-       ======================== -->
-  <aside class="sidebar">
-    <div class="name">VaneGoodenough</div>
-
-    <!-- Tabs: 修改文字即可新增导航 -->
-    <div class="tabs">
-      <div class="tab active" data-target="works">Works / 作品</div>
-      <div class="tab" data-target="photos">Photos / 照片</div>
-      <div class="tab" data-target="updates">Updates / 动态</div>
-      <div class="tab" data-target="contact">Contact / 联系</div>
-      <div class="tab" data-target="socials">Links / 平台</div>
-    </div>
-  </aside>
-
-  <!-- ========================
-       MAIN PANEL
-       ======================== -->
-  <main class="panel">
-
-    <!-- ====== WORKS ====== -->
-    <section id="works" class="section active">
-      <h2>Music Works / 音乐作品</h2>
-
-      <!-- 复制整个 .track 即可新增一首歌 -->
-      <div class="track">
-        <strong>Lee</strong>
-        <p class="muted">A song for a male character · 2026</p>
-        <!-- 替换 src 为你的音频直链 -->
-        <audio controls src="YOUR_AUDIO_LINK.mp3"></audio>
-      </div>
-    </section>
-
-    <!-- ====== PHOTOS ====== -->
-    <section id="photos" class="section">
-      <h2>Photos / 照片</h2>
-
-      <!-- 复制 img 标签即可新增照片 -->
-      <div class="grid">
-        <img src="YOUR_IMAGE_LINK.jpg" />
-        <img src="YOUR_IMAGE_LINK.jpg" />
-      </div>
-    </section>
-
-    <!-- ====== UPDATES ====== -->
-    <section id="updates" class="section">
-      <h2>Updates / 动态</h2>
-      <p class="muted">2026 · New music in progress.</p>
-    </section>
-
-    <!-- ====== CONTACT ====== -->
-    <section id="contact" class="section">
-      <h2>Contact / 联系</h2>
-      <p>Email: your@email.com</p>
-    </section>
-
-    <!-- ====== SOCIALS ====== -->
-    <section id="socials" class="section">
-      <h2>Platforms / 平台</h2>
-      <div class="links">
-        <!-- 替换 href 即可 -->
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <a href="https://twitter.com" target="_blank">Twitter / X</a>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-<!-- ========================
-     JS: ZERO GLOBAL, ZERO BUG
-     ======================== -->
-<script>
-  const tabs = document.querySelectorAll('.tab');
-  const sections = document.querySelectorAll('.section');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.target;
-
-      tabs.forEach(t => t.classList.remove('active'));
-      sections.forEach(s => s.classList.remove('active'));
-
-      tab.classList.add('active');
-      document.getElementById(target).classList.add('active');
-    });
-  });
-</script>
-
-</body>
-</html>
+<!-- RPG-STYLE UI UPGRADE END -->
