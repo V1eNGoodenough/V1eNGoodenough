@@ -2,305 +2,233 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VaneGoodenough</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VaneGoodenough</title>
 
-  <!-- ========== 核心样式 ========== -->
-  <style>
-/* ===== 平衡版废土微光粒子（推荐终版） ===== */
+<style>
+/* ===== 平衡版废土微光粒子 ===== */
 .particles {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-
   background-image:
     radial-gradient(circle, rgba(159,211,199,0.55) 1.8px, transparent 3px),
     radial-gradient(circle, rgba(255,255,255,0.4) 1.4px, transparent 3px);
-
-  background-size:
-    140px 140px,
-    220px 220px;
-
-  background-position:
-    0 0,
-    70px 100px;
-
+  background-size: 140px 140px, 220px 220px;
+  background-position: 0 0, 70px 100px;
   animation: dustMove 28s linear infinite;
   opacity: 0.65;
   mix-blend-mode: screen;
 }
-
-
 @keyframes dustMove {
-  from {
-    background-position: 0 0, 60px 80px;
-  }
-  to {
-    background-position: 0 -600px, 60px -800px;
-  }
+  from { background-position: 0 0, 60px 80px; }
+  to { background-position: 0 -600px, 60px -800px; }
 }
 
+/* ===== 主题变量 ===== */
+:root {
+  --ui-bg: rgba(20, 22, 24, 0.68);
+  --panel-bg: rgba(30, 34, 38, 0.72);
+  --border-color: #6b7a78;
+  --accent: #9fd3c7;
+  --text-main: #e6f1ee;
+  --text-dim: #a9b7b5;
+}
 
-    /* ===== 可快速调整的主题变量 ===== */
-    :root {
-      --ui-bg: rgba(20, 22, 24, 0.68);   /* UI 背景透明度 ↑ 数值越小越透明 */
-      --panel-bg: rgba(30, 34, 38, 0.72);
-      --border-color: #6b7a78;
-      --accent: #9fd3c7;
-      --text-main: #e6f1ee;
-      --text-dim: #a9b7b5;
-    }
+/* ===== 全局 ===== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Inter", system-ui, sans-serif;
+  color: var(--text-main);
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.6)),
+    url("https://pic1.imgdb.cn/item/697cabdaad9f5f6883e2e397.jpg") center / cover no-repeat fixed;
+  min-height: 100vh;
+}
 
-    /* ===== 全局 ===== */
-    * { box-sizing: border-box; }
+/* ===== 页面布局 ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
 
-    body {
-      margin: 0;
-      font-family: "Segoe UI", "Inter", system-ui, sans-serif;
-      color: var(--text-main);
-      background:
-        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.6)),
-        url("https://pic1.imgdb.cn/item/697cabdaad9f5f6883e2e397.jpg") center / cover no-repeat fixed; /* ← 在这里换背景图 */
-      min-height: 100vh;
-    }
+/* ===== 左侧栏 ===== */
+.sidebar {
+  background: var(--ui-bg);
+  border-right: 1px solid var(--border-color);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  backdrop-filter: blur(6px);
+}
+.logo { font-size: 20px; font-weight: 700; letter-spacing:1px; text-transform: uppercase; color: var(--accent); margin-bottom:6px; }
+.subtitle { font-size: 12px; color: var(--text-dim); margin-bottom:12px; }
+.menu { display:flex; flex-direction:column; gap:10px; flex-grow:1; }
+.menu button {
+  background: var(--panel-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.menu button:hover,
+.menu button.active {
+  background: rgba(80,110,120,0.45);
+  border-color: var(--accent);
+}
 
-    /* ===== 页面布局 ===== */
-    .layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      min-height: 100vh;
-    }
+/* 社交图标 */
+.hud-icons { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.hud-icons a {
+  display:block;
+  background: var(--panel-bg);
+  border:1px solid var(--border-color);
+  padding:8px;
+  transition: all 0.2s ease;
+}
+.hud-icons a:hover { border-color: var(--accent); transform:scale(1.05); }
+.hud-icons img { width:100%; height:40px; object-fit:contain; }
 
-    /* ===== 左侧 RPG UI 栏 ===== */
-    .sidebar {
-      background: var(--ui-bg);
-      border-right: 1px solid var(--border-color);
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      backdrop-filter: blur(6px);
-    }
+/* 主内容 */
+.content { padding:26px 30px; overflow:hidden; }
+.panel {
+  background: var(--panel-bg);
+  border:1px solid var(--border-color);
+  padding:20px;
+  height:calc(100vh - 52px);
+  overflow-y:auto;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.5s ease;
+}
+.panel h2 { margin-top:0; font-size:18px; border-bottom:1px solid var(--border-color); padding-bottom:6px; margin-bottom:14px; }
+.track { margin-bottom:16px; padding-bottom:12px; border-bottom:1px dashed var(--border-color); }
+audio { width:100%; margin-top:6px; }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
+/* 响应式 */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{flex-direction:row; flex-wrap:wrap;}
+  .menu{flex-direction:row; flex-wrap:wrap;}
+}
 
-    .subtitle {
-      font-size: 12px;
-      color: var(--text-dim);
-      margin-bottom: 12px;
-    }
+/* 图片缩略图 */
+.photo-grid { display:flex; flex-wrap:wrap; gap:10px; }
+.photo-grid img {
+  width:48%; height:150px; object-fit:cover; border-radius:6px; cursor:pointer; transition:transform 0.2s;
+}
+.photo-grid img:hover{ transform:scale(1.05); }
 
-    .menu {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex-grow: 1;
-    }
-
-    .menu button {
-      background: var(--panel-bg);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 10px 12px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .menu button:hover,
-    .menu button.active {
-      background: rgba(80, 110, 120, 0.45);
-      border-color: var(--accent);
-    }
-
-    /* ===== 社交平台区（图片 + 链接） ===== */
-    .social {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .social a {
-      display: block;
-      background: var(--panel-bg);
-      border: 1px solid var(--border-color);
-      padding: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .social a:hover {
-      border-color: var(--accent);
-      transform: scale(1.05);
-    }
-
-    .social img {
-      width: 100%;
-      height: 40px;
-      object-fit: contain;
-    }
-
-    /* ===== 主内容区 ===== */
-    .content {
-      padding: 26px 30px;
-      overflow: hidden;
-    }
-
-    .panel {
-      background: var(--panel-bg);
-      border: 1px solid var(--border-color);
-      padding: 20px;
-      height: calc(100vh - 52px);
-      overflow-y: auto; /* 超出内容滚动 */
-      backdrop-filter: blur(6px);
-      animation: fadeIn 0.5s ease;
-    }
-
-    .panel h2 {
-      margin-top: 0;
-      font-size: 18px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 6px;
-      margin-bottom: 14px;
-    }
-
-    /* ===== 作品（音频） ===== */
-    .track {
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed var(--border-color);
-    }
-
-    audio {
-      width: 100%;
-      margin-top: 6px;
-    }
-
-    /* ===== 动画 ===== */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: none; }
-    }
-
-    /* ===== 响应式 ===== */
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-      .menu {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-    }
-  </style>
+/* 弹出大图 */
+#lightbox {
+  display:none; position:fixed; inset:0; justify-content:center; align-items:center; background:rgba(0,0,0,0.85); z-index:10000;
+  opacity:0; transition:opacity 0.3s ease;
+}
+#lightbox.show { opacity:1; display:flex; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:6px; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+</style>
 </head>
 
 <body>
-  <div class="layout">
+<div class="layout">
+  <aside class="sidebar">
+    <div>
+      <div class="logo">VaneGoodenough</div>
+      <div class="subtitle">-----------废土 · 音乐 · 数字人格----------- ----Wasteland · Music · Digital Persona----</div>
+    </div>
+    <div class="menu">
+      <button class="active" onclick="switchTab(event,'works')">我的作品 / Works</button>
+      <button onclick="switchTab(event,'photos')">我的照片 / Photos</button>
+      <button onclick="switchTab(event,'updates')">我的动态 / Updates</button>
+      <button onclick="switchTab(event,'contact')">联系方式 / Contact</button>
+    </div>
+    <div class="hud-icons">
+      <a href="https://www.instagram.com/v1engoodenough?igsh=dDBwamU4N3AwMGls" target="_blank"><img src="https://pic1.imgdb.cn/item/697cba0d1af8234bd07d65f5.png"></a>
+      <a href="https://x.com/V1eNGoodenough" target="_blank"><img src="https://pic1.imgdb.cn/item/697cbf1aad9f5f6883e335b7.png"></a>
+      <a href="https://discord.gg/Qy44zM8v" target="_blank"><img src="https://pic1.imgdb.cn/item/697cc2c6ad9f5f6883e347fe.png"></a>
+      <a href="https://www.youtube.com/channel/UCNztPSqgp99zC_ap7cbJLFA"><img src="https://pic1.imgdb.cn/item/697ccd58ad9f5f6883e391c6.png"></a>
+    </div>
+  </aside>
 
-    <!-- ===== 左侧 RPG UI ===== -->
-    <aside class="sidebar">
-      <div>
-        <div class="logo">VaneGoodenough</div>
-        <div class="subtitle">-----------废土 · 音乐 · 数字人格-----------   ‎
-    ----Wasteland · Music · Digital Persona----</div>
-
+  <main class="content">
+    <section id="works" class="panel" style="display:block">
+      <h2>我的作品 / Works</h2>
+      <div class="track"><strong>Mr.Lee – For a character in Original Story</strong>
+        <audio controls src="https://pan.vma.cc/pan/view.php/8252e372881e256e4ed96779c8fac3ef.mp3"></audio>
       </div>
-
-      <div class="menu">
-        <button class="active" onclick="switchTab('works')">我的作品 / Works</button>
-        <button onclick="switchTab('photos')">我的照片 / Photos</button>
-        <button onclick="switchTab('updates')">我的动态 / Updates</button>
-        <button onclick="switchTab('contact')">联系方式 / Contact</button>
+      <div class="track"><strong>When we get there – 《NorthendTowerDefense》OST</strong>
+        <audio controls src="https://pan.vma.cc/pan/view.php/2bf32aeeecb5f15252f3ca05ca32ea0b.mp3"></audio>
       </div>
+      <div class="track"><strong>JinSheTaChun – A music for forum</strong>
+        <audio controls src="http://music.163.com/song/media/outer/url?id=2670051207.mp3"></audio>
+      </div>
+    </section>
 
-      <!-- 社交平台（点击可用） -->
-<div class="hud-icons">
-  <a href="https://www.instagram.com/v1engoodenough?igsh=dDBwamU4N3AwMGls" target="_blank">
-    <img src="https://pic1.imgdb.cn/item/697cba0d1af8234bd07d65f5.png">
-  </a>
-  <a href="https://x.com/V1eNGoodenough" target="_blank">
-    <img src="https://pic1.imgdb.cn/item/697cbf1aad9f5f6883e335b7.png">
-  </a>
-  <a href="https://discord.gg/Qy44zM8v" target="_blank">
-    <img src="https://pic1.imgdb.cn/item/697cc2c6ad9f5f6883e347fe.png">
-  </a>
-  <a href="https://www.youtube.com/channel/UCNztPSqgp99zC_ap7cbJLFA">
-    <img src="https://pic1.imgdb.cn/item/697ccd58ad9f5f6883e391c6.png">
-  </a>
+    <section id="photos" class="panel" style="display:none">
+      <h2>我的照片 / Photos</h2>
+      <div class="photo-grid">
+        <img src="https://pic1.imgdb.cn/item/697cd351ad9f5f6883e3ae32.jpg" alt="Photo 1">
+        <img src="https://pic1.imgdb.cn/item/697cd352ad9f5f6883e3ae34.jpg" alt="Photo 2">
+        <img src="https://pic1.imgdb.cn/item/697cd353ad9f5f6883e3ae36.jpg" alt="Photo 3">
+        <img src="https://pic1.imgdb.cn/item/697cd351ad9f5f6883e3ae33.jpg" alt="Photo 4">
+      </div>
+    </section>
+
+    <section id="updates" class="panel" style="display:none">
+      <h2>我的动态 / Updates</h2>
+      <p>2026/1/30</p>
+      <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life.</p>
+      <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活。</p>
+    </section>
+
+    <section id="contact" class="panel" style="display:none">
+      <h2>联系方式 / Contact</h2>
+      <p>Email: 1131511423@qq.com</p>
+      <p>Email: qq1131511423@gmail.com</p>
+    </section>
+  </main>
 </div>
 
-    </aside>
-
-    <!-- ===== 主内容 ===== -->
-    <main class="content">
-
-      <!-- 我的作品 -->
-      <section id="works" class="panel">
-        <h2>我的作品 / Works</h2>
-
-        <!-- ↓↓↓ 每一首歌一个 block，audio src 换成你的外链或本地文件 ↓↓↓ -->
-        <div class="track">
-          <strong>Track 01 – Wasteland Signal</strong>
-          <audio controls src="audio/track1.mp3"></audio>
-        </div>
-
-        <div class="track">
-          <strong>Track 02 – Static Dream</strong>
-          <audio controls src="audio/track2.mp3"></audio>
-        </div>
-      </section>
-
-      <!-- 我的照片 -->
-      <section id="photos" class="panel" style="display:none">
-        <h2>我的照片 / Photos</h2>
-        <p>在这里放你的图片画廊。</p>
-      </section>
-
-      <!-- 我的动态 -->
-      <section id="updates" class="panel" style="display:none">
-        <h2>我的动态 / Updates</h2>
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
-
-      
-      </section>
-
-      <!-- 联系方式 -->
-      <section id="contact" class="panel" style="display:none">
-        <h2>联系方式 / Contact</h2>
-        <p>Email: 1131511423@qq.com</p>
-        <p>Email: qq1131511423@gmail.com</p>
-      </section>
-
-    </main>
-  </div>
-
-<!-- 全屏微光粒子层 -->
 <div class="particles"></div>
 
-  <!-- ===== 交互逻辑 ===== -->
-  <script>
-    function switchTab(id) {
-      document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+<!-- 图片弹出 -->
+<div id="lightbox"><img src="" alt="Full Image"></div>
 
-      document.querySelectorAll('.menu button').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-    }
-  </script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+  document.getElementById('works').style.display='block';
+  document.querySelectorAll('.menu button')[0].classList.add('active');
+});
+
+function switchTab(e,id){
+  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+}
+
+// 弹出图片
+const lightbox=document.getElementById('lightbox');
+const lbImage=lightbox.querySelector('img');
+document.querySelectorAll('.photo-grid img').forEach(img=>{
+  img.addEventListener('click',()=>{
+    lbImage.src=img.src;
+    lightbox.style.display='flex';
+    setTimeout(()=>lightbox.classList.add('show'),10);
+  });
+});
+lightbox.addEventListener('click',()=>{
+  lightbox.classList.remove('show');
+  setTimeout(()=>lightbox.style.display='none',300);
+});
+</script>
+
 </body>
 </html>
