@@ -8,6 +8,41 @@
 
   <!-- ========== 核心样式 ========== -->
   <style>
+/* ===== 平衡版废土微光粒子（推荐终版） ===== */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  background-image:
+    radial-gradient(circle, rgba(159,211,199,0.55) 1.8px, transparent 3px),
+    radial-gradient(circle, rgba(255,255,255,0.4) 1.4px, transparent 3px);
+
+  background-size:
+    140px 140px,
+    220px 220px;
+
+  background-position:
+    0 0,
+    70px 100px;
+
+  animation: dustMove 28s linear infinite;
+  opacity: 0.65;
+  mix-blend-mode: screen;
+}
+
+
+@keyframes dustMove {
+  from {
+    background-position: 0 0, 60px 80px;
+  }
+  to {
+    background-position: 0 -600px, 60px -800px;
+  }
+}
+
+
     /* ===== 可快速调整的主题变量 ===== */
     :root {
       --ui-bg: rgba(20, 22, 24, 0.68);   /* UI 背景透明度 ↑ 数值越小越透明 */
@@ -179,14 +214,16 @@
     <aside class="sidebar">
       <div>
         <div class="logo">VaneGoodenough</div>
-        <div class="subtitle">废土 · 音乐 · 数字人格</div>
+        <div class="subtitle">-----------废土 · 音乐 · 数字人格-----------   ‎
+    ----Wasteland · Music · Digital Persona----</div>
+
       </div>
 
       <div class="menu">
-        <button class="active" onclick="switchTab('works')">我的作品</button>
-        <button onclick="switchTab('photos')">我的照片</button>
-        <button onclick="switchTab('updates')">我的动态</button>
-        <button onclick="switchTab('contact')">联系方式</button>
+        <button class="active" onclick="switchTab('works')">我的作品 / Works</button>
+        <button onclick="switchTab('photos')">我的照片 / Photos</button>
+        <button onclick="switchTab('updates')">我的动态 / Updates</button>
+        <button onclick="switchTab('contact')">联系方式 / Contact</button>
       </div>
 
       <!-- 社交平台（点击可用） -->
@@ -197,8 +234,8 @@
   <a href="https://x.com/V1eNGoodenough" target="_blank">
     <img src="https://pic1.imgdb.cn/item/697cbf1aad9f5f6883e335b7.png">
   </a>
-  <a href="https://github.com/xxx" target="_blank">
-    <img src="https://pic1.imgdb.cn/item/697cba0d1af8234bd07d65f5.png">
+  <a href="https://discord.gg/Qy44zM8v" target="_blank">
+    <img src="https://pic1.imgdb.cn/item/697cc2c6ad9f5f6883e347fe.png">
   </a>
   <a href="https://soundcloud.com/xxx" target="_blank">
     <img src="https://pic1.imgdb.cn/item/697cba0d1af8234bd07d65f5.png">
@@ -245,29 +282,7 @@
         <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
         <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
 
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
-
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
-
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
-
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
-
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
-
-        <p>2026/1/30</p>
-        <p>I'm a creator currently focusing heavily on music production. I also enjoy fitness, and once I’m in good enough shape, I plan to start sharing more of my life. You can click the icon in the lower-left corner to visit my platforms. I look forward to your follow and subscription—every new friend truly means a lot to me.</p>
-        <p>我是一个自由职业者，现在非常喜欢把工作放在音乐制作上，同时我喜欢健身，等我身材变得足够好之后我想我会开始分享我的生活，你可以在左下角点击图标跳转至我的各个平台，期待您的关注和订阅，每一个新朋友对我来说都意义重大！</p>
+      
       </section>
 
       <!-- 联系方式 -->
@@ -279,6 +294,9 @@
 
     </main>
   </div>
+
+<!-- 全屏微光粒子层 -->
+<div class="particles"></div>
 
   <!-- ===== 交互逻辑 ===== -->
   <script>
