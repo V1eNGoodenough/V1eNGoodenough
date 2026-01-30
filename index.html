@@ -1,158 +1,252 @@
-<!-- RPG-STYLE UI UPGRADE START -->
-<!-- 说明：这是一次纯 UI / 排版升级，不改变你任何内容结构与逻辑 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VaneGoodenough</title>
 
-<style>
-:root {
-  --bg-dark: #0e0f11;
-  --panel-dark: rgba(20, 22, 26, 0.88);
-  --accent: #8affc1;
-  --accent-dim: #4da37c;
-  --danger: #ff6b6b;
-  --border: rgba(138, 255, 193, 0.25);
-  --text-main: #e6f1ea;
-  --text-dim: #9fb8ad;
-}
+  <!-- =====================
+       STABLE RPG / WASTELAND UI
+       完整可直接使用版本
+       ===================== -->
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: rgba(18, 21, 26, 0.92);
+      --border: rgba(138,255,193,0.25);
+      --accent: #8affc1;
+      --text: #e6f1ea;
+      --muted: #9fb8ad;
+    }
 
-body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #1b1e23, #070809 70%);
-  color: var(--text-main);
-}
+    * { box-sizing: border-box; }
 
-/* === RPG 主界面布局 === */
-.main {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  height: 100vh;
-  gap: 16px;
-  padding: 20px;
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, #1b1e23, #050607 70%);
+      overflow: hidden;
+    }
 
-/* === 左侧 RPG 菜单 === */
-.sidebar {
-  background: var(--panel-dark);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+    /* === MAIN LAYOUT === */
+    .main {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      height: 100vh;
+      gap: 16px;
+      padding: 20px;
+    }
 
-.sidebar h1 {
-  font-size: 22px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-bottom: 1px dashed var(--border);
-  padding-bottom: 10px;
-  margin-bottom: 6px;
-}
+    /* === SIDEBAR === */
+    .sidebar {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-.tab {
-  padding: 10px 14px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  color: var(--text-dim);
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0));
-}
+    .sidebar h1 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 10px;
+    }
 
-.tab:hover {
-  border-color: var(--border);
-  color: var(--accent);
-}
+    .tab {
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--muted);
+      transition: 0.2s;
+    }
 
-.tab.active {
-  background: linear-gradient(135deg, rgba(138,255,193,0.15), rgba(0,0,0,0));
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: inset 0 0 12px rgba(138,255,193,0.15);
-}
+    .tab:hover {
+      color: var(--accent);
+      background: rgba(138,255,193,0.08);
+    }
 
-/* === 右侧 RPG 内容面板 === */
-.panel {
-  background: var(--panel-dark);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 28px;
-  overflow: hidden;
-  position: relative;
-}
+    .tab.active {
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      background: rgba(138,255,193,0.12);
+      box-shadow: inset 0 0 12px rgba(138,255,193,0.2);
+    }
 
-.panel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255,255,255,0.02),
-    rgba(255,255,255,0.02) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none;
-}
+    /* === PANEL === */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px 30px;
+      overflow: hidden;
+      position: relative;
+    }
 
-.section {
-  display: none;
-  height: 100%;
-}
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.025),
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
+    }
 
-.section.active {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
+    /* === SECTIONS === */
+    .section {
+      display: none;
+      height: 100%;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
 
-.section h2 {
-  font-size: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
-}
+    .section.active {
+      display: block;
+    }
 
-/* === RPG 音乐列表 === */
-.audio-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0));
-}
+    .section h2 {
+      margin-top: 0;
+      font-size: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
 
-.audio-item span {
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
+    .section::-webkit-scrollbar { width: 6px; }
+    .section::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+    }
 
-.audio-item audio {
-  width: 220px;
-}
+    /* === MUSIC === */
+    .track {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+    }
 
-/* === RPG 照片 / 卡片 === */
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 14px;
-}
+    .track span {
+      font-size: 14px;
+    }
 
-.photo-grid img {
-  width: 100%;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    audio { width: 220px; }
 
-.photo-grid img:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 18px rgba(138,255,193,0.35);
-}
-</style>
+    /* === PHOTOS === */
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
 
-<!-- RPG-STYLE UI UPGRADE END -->
+    .photos img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .photos img:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 18px rgba(138,255,193,0.35);
+    }
+
+    /* === MOBILE === */
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h1>Vane</h1>
+    <div class="tab active" onclick="openTab(this,'works')">Works / 作品</div>
+    <div class="tab" onclick="openTab(this,'photos')">Photos / 照片</div>
+    <div class="tab" onclick="openTab(this,'updates')">Updates / 动态</div>
+    <div class="tab" onclick="openTab(this,'contact')">Contact / 联系</div>
+    <div class="tab" onclick="openTab(this,'socials')">Links / 平台</div>
+  </div>
+
+  <!-- PANEL -->
+  <div class="panel">
+
+    <!-- WORKS -->
+    <div id="works" class="section active">
+      <h2>Music Works</h2>
+
+      <!-- 复制这一整块来新增歌曲 -->
+      <div class="track">
+        <span>Lee — A song for a male character (2026)</span>
+        <audio controls src="https://pan.vma.cc/pan/view.php/8252e372881e256e4ed96779c8fac3ef.mp3"></audio>
+      </div>
+
+    </div>
+
+    <!-- PHOTOS -->
+    <div id="photos" class="section">
+      <h2>Photos</h2>
+      <div class="photos">
+        <!-- 替换 src 即可换照片 -->
+        <img src="https://pic1.imgdb.cn/item/697ca48bad9f5f6883e2bcf8.jpg" />
+        <img src="https://pic1.imgdb.cn/item/697ca48bad9f5f6883e2bcf8.jpg" />
+      </div>
+    </div>
+
+    <!-- UPDATES -->
+    <div id="updates" class="section">
+      <h2>Updates</h2>
+      <p>Logs, notes, signals.</p>
+    </div>
+
+    <!-- CONTACT -->
+    <div id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Email: your@email.com</p>
+    </div>
+
+    <!-- SOCIALS -->
+    <div id="socials" class="section">
+      <h2>Platforms</h2>
+      <p>Instagram / Twitter / Others</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openTab(el, id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
