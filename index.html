@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VANE</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --fg: #e6e6eb;
+      --muted: #8a8f98;
+      --accent: #7f9cff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 30% 20%, #151926, var(--bg));
+      color: var(--fg);
+      line-height: 1.6;
+    }
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8vw;
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+    h1 span { color: var(--accent); }
+    p.lead {
+      max-width: 520px;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    nav {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      display: flex;
+      gap: 20px;
+      font-size: 0.9rem;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    nav a:hover { color: var(--fg); }
+    section {
+      padding: 10vw 8vw;
+      max-width: 1200px;
+    }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(6px);
+    }
+    footer {
+      padding: 60px 8vw;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header>
+    <h1>VANE<span>.</span></h1>
+    <p class="lead">
+      A drifting mind, guided by no fixed direction.<br />
+      Designer · Writer · Observer
+    </p>
+  </header>
+
+  <section id="about">
+    <div class="card">
+      <h2>About</h2>
+      <p>
+        Vane is a personal space for fragmented thoughts, unfinished ideas,
+        and quiet creations. I’m interested in identity, narrative systems,
+        digital solitude, and things that don’t need to explain themselves.
+      </p>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="card">
+      <h2>Selected Work</h2>
+      <ul>
+        <li>Interactive narrative experiments</li>
+        <li>Character-driven writing</li>
+        <li>Minimal web & visual concepts</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="card">
+      <h2>Contact</h2>
+      <p>
+        You can reach me through the void, or more practically:
+      </p>
+      <p>Email: <em>your@email.com</em></p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 VANE — wayless, but intentional.
+  </footer>
+</body>
+</html>
