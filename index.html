@@ -21,15 +21,20 @@
 
     * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, #1b1e23, #050607 70%);
-      overflow: hidden;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--text);
+
+  /* ↓↓↓ 在这里换你的背景图 ↓↓↓ */
+  background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+    url("https://pic1.imgdb.cn/item/697cabdaad9f5f6883e2e397.jpg") center / cover no-repeat fixed;
+
+  overflow: hidden;
+}
+
 
     /* === MAIN LAYOUT === */
     .main {
